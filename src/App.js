@@ -1,46 +1,64 @@
-import { Provider } from 'react-redux'
-import { useState } from 'react'
-import store from './store'
+import { useState, createContext } from 'react'
 import MoneySummary from './components/moneySummary';
 import MoneyBreakdown from './components/moneyBreakdown';
-import InputExpenseAndIncome from './components/inputExpenseAndIncome';
+import MoneyLog from './components/moneyLog';
 import "./styles/index.css";
 
-const App = () => {
-  var [addEntry, setAddEntry] = useState(false)
+export const onShowMoneyLog = createContext()
+
+export const App = () => {
+  
+  const ADD = '+'
+  const BACK = "BACK"
+
+  var [showMoneyLog, setShowMoneyLog] = useState({
+    display: false,
+    mode: 1,
+    id: null
+  })
 
   const btnAddClicked = () => {
-    setAddEntry(true)
+    setShowMoneyLog({
+      display: true, 
+      mode: 1, 
+      id: null
+    })
   }
 
   const btnBackClicked = () => {
-    setAddEntry(false)
+    setShowMoneyLog({
+      display: false, 
+      id: null
+    })
   }
-  
+
   function showAddEntryBtn () {
-    return <div className="z-10 fixed bottom-0 right-0 m-5">
-      <button class="round pr-5 pl-5 pt-3 pb-3 bg-amber-500 drop-shadow-lg text-2xl font-bold text-white" onClick={btnAddClicked}>+</button>
+    return <div className="float-right-bottom">
+      <button className="btn round pr-5 pl-5 pt-3 pb-3 text-2xl" onClick={btnAddClicked}>
+        {ADD}
+      </button>
     </div>
   }
 
+
   function showBackBtn () {
-    return <div className="z-10 fixed bottom-0 right-0 m-5">
-      <button class="rounded-full pt-3 pb-3 pl-4 pr-4 bg-amber-500 drop-shadow-lg text-1xl font-bold text-white" onClick={btnBackClicked}>BACK</button>
+    return <div className="float-right-bottom">
+      <button className="btn rounded-full pt-3 pb-3 pl-4 pr-4 text-1xl" onClick={btnBackClicked}>
+        {BACK}
+      </button>
     </div>
   }
 
   return (
-    <Provider store={store}>
-      <div className="App h-screen p-4">
-        <div className="h-full shadow-md rounded-b-lg overflow-y-auto">
-           <MoneySummary/>
-           { addEntry ? <InputExpenseAndIncome/> : <MoneyBreakdown/>}
-           { addEntry ? showBackBtn() : showAddEntryBtn()}
+        <div className="App h-screen p-4">
+          <div className="h-full shadow-md rounded-b-lg overflow-y-auto">
+            <MoneySummary/>
+              <onShowMoneyLog.Provider value={[showMoneyLog, setShowMoneyLog]}>
+                { showMoneyLog.display ? <MoneyLog/> : <MoneyBreakdown/>}
+              </onShowMoneyLog.Provider>
+            { showMoneyLog.display ? showBackBtn() : showAddEntryBtn()}
+          </div>
+          
         </div>
-      </div>
-    </Provider>
-    
   );
 }
-
-export default App;
