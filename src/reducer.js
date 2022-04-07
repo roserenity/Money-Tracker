@@ -59,7 +59,7 @@ function add(state, payload, payloadType) {
     }
     var generatedID = generateID()
 
-    state["moneyLog"][`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${payloadType}`].map(obj => {
+    state["moneyLog"][`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${payloadType}`].forEach(obj => {
         while(obj["id"] === generatedID) {
             generatedID = generateID() 
         }
@@ -79,7 +79,7 @@ function del(state, payload, payloadType, id) {
     var [year, month, date] = payload.date.split('-')
     var index = 0
 
-    Object.entries(state["moneyLog"][`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${payloadType}`]).map(log => {
+    Object.entries(state["moneyLog"][`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${payloadType}`]).forEach(log => {
         if(log[1]["id"] === id) {
            index = log[0]
         }
@@ -95,7 +95,7 @@ function edit(state, payload, payloadType, id) {
     var [year, month, date] = payload.date.split('-')
     var prevAmount = 0
 
-    Object.entries(state["moneyLog"][`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${payloadType}`]).map(log => {
+    Object.entries(state["moneyLog"][`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${payloadType}`]).forEach(log => {
         if(log[1]["id"] === id) {
             prevAmount = log[1]["amount"]
             log[1]["item"] = payload.item
