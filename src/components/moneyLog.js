@@ -15,9 +15,9 @@ const MoneyLog = () => {
         year = _year
         month = _month
         date = _date
-        Object.entries(store.getState().moneyLog[`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${type}`]).map(logs=>{
+        Object.entries(store.getState().moneyLog[`year-${year}`][`month-${month}`]["dayLog"][`date-${date}`][`${type}`]).forEach(logs=>{
             if(logs[1]["id"] === id) {
-                ({id, item, amount, notes} = logs[1])
+                 ({id, item, amount, notes} = logs[1])
             }
         }) 
     }

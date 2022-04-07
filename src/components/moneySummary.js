@@ -7,7 +7,7 @@ const MoneySummary = () => {
     <div id="MoneySummary" className="sticky top-0 flex justify-evenly pt-5 pb-5 rounded-t-lg">
       {
         STATEMENTS.map(statement => {
-          return ( <div className="flex-initial w-fit bg-white p-3 rounded-lg drop-shadow-md font-bold">
+          return ( <div key={statement} className="flex-initial w-fit bg-white p-3 rounded-lg drop-shadow-md font-bold">
               <p className="text-center text-base uppercase">{statement}</p>
               <p className="text-center text-lg">{store.getState()[`total${statement}`]}</p>
             </div>

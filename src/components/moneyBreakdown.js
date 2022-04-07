@@ -1,5 +1,5 @@
 import store from '../store'
-import { useState, useContext, useRef } from 'react'
+import { useState, useContext } from 'react'
 import { onShowMoneyLog } from '../App';
 
 const MoneyBreakdown = () => {
@@ -29,19 +29,24 @@ const MoneyBreakdown = () => {
     
     function monthlySummary () {
         const monthLog = store.getState().moneyLog[`year-${year}`][`month-${month}`]
-        return <div className="flex justify-around p-3 m-4 mb-4 rounded-lg border-2 border-y-gray-400  border-x-transparent">
-            { monthLog.totalincome !== 0 && <p>Month's Income: {monthLog.totalincome} php</p>}
-            { monthLog.totalexpenses !== 0 && <p>Month's Expenses: {monthLog.totalexpenses} php</p>}
-        </div>
+        if (monthLog) {
+            return <div className="flex justify-around p-3 m-4 mb-4 rounded-lg border-2 border-y-gray-400  border-x-transparent">
+                { monthLog.totalincome !== 0 && <p>Month's Income: {monthLog.totalincome} php</p>}
+                { monthLog.totalexpenses !== 0 && <p>Month's Expenses: {monthLog.totalexpenses} php</p>}
+            </div>
+        }
     }
 
     function showLogs () {
-        return Object.entries(store.getState().moneyLog[`year-${year}`][`month-${month}`].dayLog).map(dayBreakdown =>
-            (dayBreakdown[1][`${filterType}`].length !== 0 ) && <div key={dayBreakdown[0]} className="m-4 ">
-                <p>{dateFormatter(dayBreakdown[0])}</p>
-                {breakDown(dayBreakdown, `${filterType}`, dayBreakdown[0].split('-')[1])}
-            </div>
-        )
+        const monthLog = store.getState().moneyLog[`year-${year}`][`month-${month}`]
+        if(monthLog) {
+            return Object.entries(monthLog.dayLog).map(dayBreakdown =>
+                (dayBreakdown[1][`${filterType}`].length !== 0 ) && <div key={dayBreakdown[0]} className="m-4 ">
+                    <p>{dateFormatter(dayBreakdown[0])}</p>
+                    {breakDown(dayBreakdown, `${filterType}`, dayBreakdown[0].split('-')[1])}
+                </div>
+            )
+        }
     }
 
     function breakDown(dayBreakdown, type, date) {
