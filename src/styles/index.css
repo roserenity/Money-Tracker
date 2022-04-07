@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --hot-orange: #FBA92C;
+  --granite-gray: #565656;
+  --creme: #F4D8AE;
+  --quick-silver: #9E9E9E;
+  --navy: #16123F;
+}
+
+#MoneySummary {
+  background: var(--hot-orange);
+}
+
+#loading-1 {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+#loading-2 {
+  animation: ping 1s cubic-bezier(0.5, 0, 0.2, 1) infinite;
+}
+
+#loading-3 {
+  animation: ping 1s cubic-bezier(1, 0, 0.2, 1) infinite;
+}
+
+
+select, input[type="month"] {
+  background: var(--granite-gray);
+}
+
+.breakdown {
+  background: var(--creme);
+}
+
+select#xyz {
+  border: none;
+}
+
+::-webkit-scrollbar {
+  @apply w-5
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--quick-silver);
+  border-radius: 20px;
+  border-width: 6px;
+  @apply bg-clip-content border-solid border-transparent
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.float-right-bottom {
+  @apply z-10 fixed bottom-0 right-0 m-5
+}
+
+.btn {
+  @apply bg-amber-500 drop-shadow-lg font-bold text-white
+}
+
+.form-input {
+  @apply w-full border-0 p-2 m-2
+}
+
+.form-btn {
+  @apply rounded-full p-2 m-2 
+}
+
