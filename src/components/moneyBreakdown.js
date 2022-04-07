@@ -28,8 +28,8 @@ const MoneyBreakdown = () => {
     }
     
     function monthlySummary () {
-        const monthLog = store.getState().moneyLog[`year-${year}`][`month-${month}`]
-        if (monthLog) {
+        const monthLog = store.getState().moneyLog[`year-${year}`]
+        if (monthLog && monthLog[`month-${month}`]) {
             return <div className="flex justify-around p-3 m-4 mb-4 rounded-lg border-2 border-y-gray-400  border-x-transparent">
                 { monthLog.totalincome !== 0 && <p>Month's Income: {monthLog.totalincome} php</p>}
                 { monthLog.totalexpenses !== 0 && <p>Month's Expenses: {monthLog.totalexpenses} php</p>}
@@ -38,9 +38,9 @@ const MoneyBreakdown = () => {
     }
 
     function showLogs () {
-        const monthLog = store.getState().moneyLog[`year-${year}`][`month-${month}`]
-        if(monthLog) {
-            return Object.entries(monthLog.dayLog).map(dayBreakdown =>
+        const monthLog = store.getState().moneyLog[`year-${year}`]
+        if(monthLog && monthLog[`month-${month}`]) {
+            return Object.entries(monthLog[`month-${month}`].dayLog).map(dayBreakdown =>
                 (dayBreakdown[1][`${filterType}`].length !== 0 ) && <div key={dayBreakdown[0]} className="m-4 ">
                     <p>{dateFormatter(dayBreakdown[0])}</p>
                     {breakDown(dayBreakdown, `${filterType}`, dayBreakdown[0].split('-')[1])}
