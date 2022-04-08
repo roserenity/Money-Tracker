@@ -28,19 +28,19 @@ const MoneyBreakdown = () => {
     }
     
     function monthlySummary () {
-        const monthLog = store.getState().moneyLog[`year-${year}`]
-        if (monthLog && monthLog[`month-${month}`]) {
+        const yearLog = store.getState().moneyLog[`year-${year}`]
+        if (yearLog && yearLog[`month-${month}`]) {
             return <div className="flex justify-around p-3 m-4 mb-4 rounded-lg border-2 border-y-gray-400  border-x-transparent">
-                { monthLog.totalincome !== 0 && <p>Month's Income: {monthLog.totalincome} php</p>}
-                { monthLog.totalexpenses !== 0 && <p>Month's Expenses: {monthLog.totalexpenses} php</p>}
+                { yearLog[`month-${month}`].totalincome !== 0 && <p>Month's Income: ${yearLog[`month-${month}`].totalincome}</p>}
+                { yearLog[`month-${month}`].totalexpenses !== 0 && <p>Month's Expenses: {yearLog[`month-${month}`].totalexpenses} php</p>}
             </div>
         }
     }
 
     function showLogs () {
-        const monthLog = store.getState().moneyLog[`year-${year}`]
-        if(monthLog && monthLog[`month-${month}`]) {
-            return Object.entries(monthLog[`month-${month}`].dayLog).map(dayBreakdown =>
+        const yearLog = store.getState().moneyLog[`year-${year}`]
+        if(yearLog && yearLog[`month-${month}`]) {
+            return Object.entries(yearLog[`month-${month}`].dayLog).map(dayBreakdown =>
                 (dayBreakdown[1][`${filterType}`].length !== 0 ) && <div key={dayBreakdown[0]} className="m-4 ">
                     <p>{dateFormatter(dayBreakdown[0])}</p>
                     {breakDown(dayBreakdown, `${filterType}`, dayBreakdown[0].split('-')[1])}
