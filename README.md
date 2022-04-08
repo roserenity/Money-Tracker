@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Money Tracker
+
+View live here: https://money-tracker-ac.netlify.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
