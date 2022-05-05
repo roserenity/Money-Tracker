@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react'
-import MoneySummary from './components/moneySummary';
-import MoneyBreakdown from './components/moneyBreakdown';
-import MoneyLog from './components/moneyLog';
+import MoneySummary from './components/MoneySummary';
+import MoneyLog from './components/MoneyLog';
+import LogForm from './components/LogForm';
 import "./styles/index.css";
 
 export const onShowMoneyLog = createContext()
@@ -50,15 +50,14 @@ export const App = () => {
   }
 
   return (
-        <div className="App h-screen p-4">
-          <div className="h-full shadow-md rounded-b-lg overflow-y-auto">
-            <MoneySummary/>
-              <onShowMoneyLog.Provider value={[showMoneyLog, setShowMoneyLog]}>
-                { showMoneyLog.display ? <MoneyLog/> : <MoneyBreakdown/>}
-              </onShowMoneyLog.Provider>
-            { showMoneyLog.display ? showBackBtn() : showAddEntryBtn()}
-          </div>
-          
-        </div>
+    <div className="App h-screen p-4">
+      <div className="h-full shadow-md rounded-b-lg overflow-y-auto">
+        <MoneySummary/>
+          <onShowMoneyLog.Provider value={[showMoneyLog, setShowMoneyLog]}>
+            { showMoneyLog.display ? <LogForm/> : <MoneyLog/>}
+          </onShowMoneyLog.Provider>
+        { showMoneyLog.display ? showBackBtn() : showAddEntryBtn()}
+      </div>
+    </div>
   );
 }
